@@ -7,12 +7,12 @@ export const RECIEVE_CURRENCIES_SUCCESS = 'RECIEVE_CURRENCIES_SUCCESS';
 export const RECIEVE_CURRENCIES_FAILURE = 'RECIEVE_CURRENCIES_FAILURE';
 
 export const user = (payload) => ({
-  type: 'EMAIL',
+  type: ADD_EMAIL,
   payload,
 });
 
 export const wallet = (payload) => ({
-  type: 'WALLET',
+  type: ADD_WALLET,
   payload,
 });
 
@@ -38,6 +38,16 @@ export const fetchCurrencies = () => async (dispatch) => {
       currency !== 'USDT'
     ));
     dispatch(recieveCurrenciesSuccess(filteredCurrencies));
+  } catch (error) {
+    dispatch(recieveCurrenciesFailure(error));
+  }
+};
+
+export const fetchExchangeRates = (state) => async (dispatch) => {
+  dispatch(requestCurrencies());
+  try {
+    const response = await getCurrentCurrencies();
+    dispatch(wallet({ ...state, exchangeRates: response }));
   } catch (error) {
     dispatch(recieveCurrenciesFailure(error));
   }

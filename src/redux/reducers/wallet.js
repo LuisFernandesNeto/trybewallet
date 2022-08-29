@@ -1,4 +1,4 @@
-import { RECIEVE_CURRENCIES_SUCCESS } from '../actions';
+import { RECIEVE_CURRENCIES_SUCCESS, ADD_WALLET } from '../actions';
 
 const INITIAL_STATE = {
   currencies: [], // array de string
@@ -11,6 +11,8 @@ const wallet = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case RECIEVE_CURRENCIES_SUCCESS:
     return { ...state, currencies: action.currencies };
+  case ADD_WALLET:
+    return { ...state, expenses: [...state.expenses, action.payload] };
   default:
     return state;
   }
