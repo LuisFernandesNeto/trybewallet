@@ -1,4 +1,4 @@
-import { RECIEVE_CURRENCIES_SUCCESS, ADD_WALLET } from '../actions';
+import { RECIEVE_CURRENCIES_SUCCESS, ADD_WALLET, BUTTON_EXCLUDE } from '../actions';
 
 const INITIAL_STATE = {
   currencies: [], // array de string
@@ -13,6 +13,9 @@ const wallet = (state = INITIAL_STATE, action) => {
     return { ...state, currencies: action.currencies };
   case ADD_WALLET:
     return { ...state, expenses: [...state.expenses, action.payload] };
+  case BUTTON_EXCLUDE:
+    return { ...state,
+      expenses: state.expenses.filter((expense) => expense.id !== action.payload) };
   default:
     return state;
   }

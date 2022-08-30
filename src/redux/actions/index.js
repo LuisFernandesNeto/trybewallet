@@ -5,6 +5,7 @@ export const ADD_WALLET = 'WALLET';
 export const REQUEST_CURRENCIES = 'REQUEST_CURRENCIES';
 export const RECIEVE_CURRENCIES_SUCCESS = 'RECIEVE_CURRENCIES_SUCCESS';
 export const RECIEVE_CURRENCIES_FAILURE = 'RECIEVE_CURRENCIES_FAILURE';
+export const BUTTON_EXCLUDE = 'BUTTON_EXCLUDE';
 
 export const user = (payload) => ({
   type: ADD_EMAIL,
@@ -52,3 +53,8 @@ export const fetchExchangeRates = (state) => async (dispatch) => {
     dispatch(recieveCurrenciesFailure(error));
   }
 };
+
+export const buttonExcludeExpense = (payload) => ({
+  type: BUTTON_EXCLUDE,
+  payload,
+});

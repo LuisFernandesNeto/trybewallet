@@ -1,10 +1,47 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { buttonExcludeExpense } from '../redux/actions';
 
 class Table extends Component {
+  buttonClick = (id) => {
+    const { dispatch } = this.props;
+    dispatch(buttonExcludeExpense(id));
+  };
+
   render() {
+    const { expenses } = this.props;
+    const tableInfo = expenses.map((expense) => (
+      <tr key={ expense.id }>
+        <td>{expense.description }</td>
+        <td>{expense.tag}</td>
+        <td>{expense.method}</td>
+        <td>{Number((expense.value)).toFixed(2)}</td>
+        <td>{expense.exchangeRates[expense.currency].name}</td>
+        <td>{Number(expense.exchangeRates[expense.currency].ask).toFixed(2)}</td>
+        <td>
+          {
+            (expense.value * expense.exchangeRates[expense.currency].ask).toFixed(2)
+          }
+
+        </td>
+        <td>Real</td>
+        <td>
+          <button
+            onClick={ () => this.buttonClick(expense.id) }
+            type="button"
+            data-testid="delete-btn"
+          >
+            X
+          </button>
+
+        </td>
+      </tr>
+
+    ));
     return (
-      <div>
-        <table>
+      <table>
+        <thead>
           <tr>
             <th>Descrição</th>
             <th>Tag</th>
@@ -16,10 +53,22 @@ class Table extends Component {
             <th>Moeda de conversão</th>
             <th>Editar/Excluir</th>
           </tr>
-        </table>
-      </div>
+        </thead>
+        <tbody>
+          {tableInfo}
+        </tbody>
+      </table>
     );
   }
 }
 
-export default Table;
+const mapStateToProps = (state) => ({
+  expenses: state.wallet.expenses,
+});
+
+Table.propTypes = {
+  expenses: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+  dispatch: PropTypes.func.isRequired,
+};
+
+export default connect(mapStateToProps)(Table);
