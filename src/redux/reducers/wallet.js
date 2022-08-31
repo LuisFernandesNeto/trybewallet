@@ -1,4 +1,10 @@
-import { RECIEVE_CURRENCIES_SUCCESS, ADD_WALLET, BUTTON_EXCLUDE } from '../actions';
+import {
+  RECIEVE_CURRENCIES_SUCCESS,
+  ADD_WALLET,
+  BUTTON_EXCLUDE,
+  BUTTON_EDIT,
+  BUTTON_UPDATE,
+} from '../actions';
 
 const INITIAL_STATE = {
   currencies: [], // array de string
@@ -16,6 +22,12 @@ const wallet = (state = INITIAL_STATE, action) => {
   case BUTTON_EXCLUDE:
     return { ...state,
       expenses: state.expenses.filter((expense) => expense.id !== action.payload) };
+  case BUTTON_EDIT:
+    return { ...state, editor: true, idToEdit: action.payload };
+  case BUTTON_UPDATE:
+    return { ...state,
+      editor: false,
+      expenses: state.expenses.filter((expense) => expense.id === action.payload) };
   default:
     return state;
   }

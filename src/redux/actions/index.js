@@ -6,6 +6,8 @@ export const REQUEST_CURRENCIES = 'REQUEST_CURRENCIES';
 export const RECIEVE_CURRENCIES_SUCCESS = 'RECIEVE_CURRENCIES_SUCCESS';
 export const RECIEVE_CURRENCIES_FAILURE = 'RECIEVE_CURRENCIES_FAILURE';
 export const BUTTON_EXCLUDE = 'BUTTON_EXCLUDE';
+export const BUTTON_EDIT = 'BUTTON_EDIT';
+export const BUTTON_UPDATE = 'BUTTON_UPDATE';
 
 export const user = (payload) => ({
   type: ADD_EMAIL,
@@ -56,5 +58,15 @@ export const fetchExchangeRates = (state) => async (dispatch) => {
 
 export const buttonExcludeExpense = (payload) => ({
   type: BUTTON_EXCLUDE,
+  payload,
+});
+
+export const buttonEditExpense = (payload) => ({
+  type: BUTTON_EDIT,
+  payload,
+});
+
+export const buttonUpdateExpense = (payload) => ({
+  type: BUTTON_UPDATE,
   payload,
 });
